@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Report - Plant Disease Detection System Using CNN and Explainable AI</title>
+<style>
+    @page {
+        size: A4;
+        margin: 20mm 15mm 20mm 15mm;
+    }
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        color: #000;
+        line-height: 1.45;
+        font-size: 13.5pt;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+    }
+    .page {
+        width: 175mm;
+        min-height: 255mm;
+        margin: 0 auto 30px auto;
+        padding: 15mm 15mm 15mm 15mm;
+        border: 1.5px solid #000;
+        position: relative;
+        box-sizing: border-box;
+        page-break-after: always;
+        background: #fff;
+    }
+    .header-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1.5px solid #444;
+        padding-bottom: 6px;
+        margin-bottom: 22px;
+    }
+    .header-left {
+        font-size: 9pt;
+        font-weight: bold;
+        line-height: 1.2;
+    }
+    .header-left span.red {
+        color: #b91c1c;
+        font-weight: bold;
+    }
+    .header-right {
+        text-align: right;
+        font-size: 11pt;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+    .header-right span.red {
+        color: #b91c1c;
+        font-size: 14pt;
+    }
+    .page-num {
+        position: absolute;
+        bottom: 12mm;
+        right: 15mm;
+        font-size: 11pt;
+    }
+    h1.report-title {
+        text-align: center;
+        font-size: 19pt;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-top: 35px;
+        margin-bottom: 30px;
+        line-height: 1.3;
+    }
+    .center-text {
+        text-align: center;
+    }
+    .chapter-heading {
+        text-align: center;
+        font-size: 15.5pt;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-top: 8px;
+        margin-bottom: 16px;
+    }
+    h2.section-heading {
+        font-size: 13.5pt;
+        font-weight: bold;
+        margin-top: 14px;
+        margin-bottom: 6px;
+    }
+    h3.sub-heading {
+        font-size: 13pt;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 4px;
+    }
+    p {
+        margin: 0 0 10px 0;
+        text-align: justify;
+    }
+    ul, ol {
+        margin: 4px 0 12px 24px;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 4px;
+    }
+    table.index-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 13pt;
+    }
+    table.index-table th, table.index-table td {
+        border: 1.5px solid #000;
+        padding: 7px 12px;
+        text-align: left;
+    }
+    table.index-table th {
+        font-weight: bold;
+    }
+    .cu-logo-box {
+        text-align: center;
+        margin: 25px 0 15px 0;
+    }
+    .cu-logo-box img {
+        height: 60px;
+    }
+    .fig-container {
+        text-align: center;
+        margin: 16px 0;
+    }
+    .fig-box {
+        border: 1px solid #777;
+        background: #f8fafc;
+        padding: 18px;
+        margin: 10px auto;
+        font-family: monospace;
+        font-size: 10pt;
+        text-align: left;
+        border-radius: 4px;
+        max-width: 90%;
+    }
+    .fig-caption {
+        font-style: italic;
+        font-size: 12pt;
+        margin-top: 6px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: TITLE PAGE -->
+<div class="page" style="text-align: center;">
+    <p style="font-size: 15pt; font-weight: bold; margin-top: 15px; margin-bottom: 25px;">Project Report</p>
+    
+    <h1 style="font-size: 20pt; font-weight: bold; text-decoration: underline; margin-bottom: 30px; line-height: 1.35;">
+        Plant Disease Detection System Using Convolutional Neural Networks and Explainable AI
+    </h1>
+
+    <p style="font-size: 13.5pt; margin-bottom: 4px;">Submitted By</p>
+    <p style="font-size: 14.5pt; font-weight: bold; margin: 0;">VIDUSHI (25MCI10158)</p>
+    <p style="font-size: 14.5pt; font-weight: bold; margin: 0 0 16px 0;">KHUSHI (25MCI10383)</p>
+
+    <p style="font-size: 14pt; font-weight: bold; margin-bottom: 25px;">25MAM-3A</p>
+
+    <p style="font-size: 13.5pt; margin-bottom: 4px;">Submitted to</p>
+    <p style="font-size: 15pt; font-weight: bold; margin-bottom: 35px;">Dr SARABJEET KAUR</p>
+
+    <p style="font-size: 12.5pt; font-style: italic; margin-bottom: 4px;">In partial fulfilment for the award of the degree of</p>
+    <p style="font-size: 14pt; font-weight: bold; margin-bottom: 30px;">MASTER OF COMPUTER APPLICATION</p>
+
+    <p style="font-size: 13.5pt; font-weight: bold; margin-bottom: 20px;">University Institute of Computing (UIC)</p>
+
+    <div style="margin: 25px auto 15px auto;">
+        <div style="display: inline-block; border: 2px solid #b91c1c; padding: 6px 14px; font-weight: bold; font-size: 18pt; color: #b91c1c; letter-spacing: 1px;">
+            CHANDIGARH UNIVERSITY
+        </div>
+        <div style="font-size: 9pt; color: #555; font-style: italic; margin-top: 3px;">Discover. Learn. Empower.</div>
+    </div>
+
+    <p style="font-size: 14pt; font-weight: bold; margin-top: 15px; margin-bottom: 4px;">CHANDIGARH UNIVERSITY</p>
+    <p style="font-size: 13pt; font-weight: bold;">JAN 2026- MAY 2026</p>
+</div>
+
+<!-- PAGE 2: INDEX -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; font-size: 16pt; font-weight: bold; margin-top: 15px; margin-bottom: 25px;">INDEX</h2>
+
+    <table class="index-table">
+        <thead>
+            <tr>
+                <th style="width: 15%;">S. No.</th>
+                <th style="width: 65%;">Contents</th>
+                <th style="width: 20%; text-align: center;">Page No</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>Introduction</td><td style="text-align: center;">1</td></tr>
+            <tr><td>2</td><td>Objectives of the Project</td><td style="text-align: center;">1</td></tr>
+            <tr><td>3</td><td>System Overview</td><td style="text-align: center;">1-2</td></tr>
+            <tr><td>4</td><td>System Architecture</td><td style="text-align: center;">3</td></tr>
+            <tr><td>5</td><td>Tools and Technologies Used</td><td style="text-align: center;">3</td></tr>
+            <tr><td>6</td><td>Skills Utilized</td><td style="text-align: center;">4</td></tr>
+            <tr><td>7</td><td>Results and Output Screenshots</td><td style="text-align: center;">10-11</td></tr>
+            <tr><td>8</td><td>Advantages of the System</td><td style="text-align: center;">12</td></tr>
+            <tr><td>9</td><td>Future Scope</td><td style="text-align: center;">13</td></tr>
+            <tr><td>10</td><td>Conclusion</td><td style="text-align: center;">13</td></tr>
+            <tr><td>11</td><td>Bibliography</td><td style="text-align: center;">14</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- PAGE 3: ACKNOWLEDGEMENT -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; font-size: 16pt; font-weight: bold; margin-top: 25px; margin-bottom: 25px;">ACKNOWLEDGEMENT</h2>
+
+    <p>
+        We deem it a pleasure to express our heartfelt gratitude to our project guide, <b>Dr. Sarabjeet Kaur</b> (Assistant Professor, UIC), under whose guidance we have successfully carried out this project. Her incisive and objective guidance, along with timely advice, provided us with constant motivation and encouragement to continue our work.
+    </p>
+    <p>
+        We also wish to express our sincere thanks to <b>Ms Amanpreet kaur Sandhu</b> (H.O.D), University Institute of Computing for her valuable suggestions, which inspired us and significantly contributed to the successful completion of the project.
+    </p>
+    <p>
+        We are grateful to <b>Dr. Manisha Malhotra</b>, Additional Director, University Institute of Computing, for providing a strong academic environment and for enforcing a disciplined approach that allowed us to focus and dedicate ourselves to the project.
+    </p>
+    <p>
+        Finally, we acknowledge with deep appreciation the support, love, and encouragement of our parents and friends, without whom the completion of this project would not have been possible. Their patience and care were instrumental in enabling us to overcome challenges and achieve our goals.
+    </p>
+
+    <div style="margin-top: 60px; line-height: 1.6;">
+        <p><b>DATED-9.04.2026</b></p>
+        <p><b>PLACE-CHANDIGARH UNIVERSITY MOHALI, PUNJAB</b></p>
+        <p><b>BY-VIDUSHI UID-25MCI10158, KHUSHI, UID-25MCI10383</b></p>
+    </div>
+</div>
+
+<!-- PAGE 4: CHAPTER 1 - INTRODUCTION -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 1 -INTRODUCTION</div>
+
+    <p>
+        In agriculture, timely and accurate detection of crop diseases is vital for ensuring food security, preventing catastrophic yield losses, and reducing excessive chemical pesticide application. Globally, plant diseases destroy an estimated 20% to 40% of agricultural production annually. Traditional diagnostic practices depend on physical inspection by trained pathologists or agricultural extension officers, an approach that is labor-intensive, slow, and inaccessible to millions of smallholder farmers in rural regions.
+    </p>
+    <p>
+        To solve this pressing agricultural challenge, the <b>Plant Disease Detection System Using Convolutional Neural Networks and Explainable AI (FloraScan AI)</b> has been developed. This project is an intelligent, web-based diagnostic application that unites state-of-the-art Deep Learning (Convolutional Neural Networks), Explainable AI (Grad-CAM), and relational database systems to provide instantaneous plant leaf pathology diagnosis and actionable agronomic prescriptions.
+    </p>
+    <p>
+        The system enables users to submit leaf images via file upload, real-time webcam capture, or through an interactive sample gallery. Using a fine-tuned MobileNetV2 architecture with inverted residual bottlenecks and data augmentation layers, the CNN classifies the leaf across 38 standardized disease categories and 14 crop species with over 98% accuracy. To eliminate the "black box" limitation of standard neural networks, the system integrates <b>Gradient-weighted Class Activation Mapping (Grad-CAM)</b>, generating attention heatmaps that visually highlight the precise necrotic spots and chlorotic haloes that governed the AI's diagnosis.
+    </p>
+    <p>
+        In addition to visual scanning, the system incorporates an interactive <b>Plant & Disease Knowledge Directory</b> with cascading dropdowns covering 24+ economically vital agricultural crops and 90+ pathologies. Complete clinical solutions—encompassing biological remedies, chemical controls, and irrigation guidelines—are provided for every disease.
+    </p>
+    <p>
+        A key pillar of this system is its <b>User Registration and Search History Tracking module</b>, backed by a persistent SQLite3 database. Users can register personal accounts, maintain customized farm notes, track crop disease histories across seasons, and export clinical diagnostic records to CSV and printable HTML formats.
+    </p>
+    <p>
+        This project demonstrates the practical application of Deep Learning, Computer Vision, and Full-Stack Web Technologies in modernizing precision agriculture.
+    </p>
+
+    <div class="page-num">4</div>
+</div>
+
+<!-- PAGE 5: CHAPTER 2 - OBJECTIVES & CHAPTER 3 - SYSTEM OVERVIEW -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 2-OBJECTIVES</div>
+
+    <p>The main objectives of the project are:</p>
+    <ol>
+        <li>To design and develop a deep learning vision system using Convolutional Neural Networks (CNN) for automated plant leaf disease diagnosis.</li>
+        <li>To classify foliar pathologies across diverse crop species with high accuracy.</li>
+        <li>To integrate Explainable AI (Grad-CAM) to render neural classification decisions transparent and visually interpretable through attention heatmaps.</li>
+        <li>To develop an interactive Plant & Disease Directory featuring cascading dropdowns for plant species and disease profiles.</li>
+        <li>To provide comprehensive agronomic prescriptions, including organic/biological treatments, targeted chemical active ingredients, and cultural prevention measures.</li>
+        <li>To implement a persistent User Registration and Authentication system using SQLite3 with salted SHA-256 password hashing.</li>
+        <li>To maintain a personalized search and scan history log for registered users with custom farm notes and CSV export capability.</li>
+        <li>To build a modern, intuitive, and responsive user interface utilizing Streamlit with custom glassmorphic aesthetics.</li>
+    </ol>
+
+    <div class="chapter-heading" style="margin-top: 25px;">CHAPTER 3-SYSTEM OVERVIEW</div>
+
+    <p>
+        The <b>Plant Disease Detection System (FloraScan AI)</b> is a web-based platform structured around a modular client-server architecture. The system combines user authentication, deep learning computer vision inference, explainable activation mapping, cascading botanical knowledge lookups, and persistent database record tracking.
+    </p>
+    <p>The system is organized into three principal layers:</p>
+
+    <h2 class="section-heading">1. Presentation Layer (Frontend)</h2>
+    <p>
+        The frontend provides an interactive, modern user interface developed using <b>Streamlit</b>, enhanced with custom <b>HTML5, CSS3 Glassmorphism</b>, and <b>Plotly</b> visualization widgets.
+    </p>
+    <p><b>Key Features:</b></p>
+    <ul>
+        <li>Provides a clean glassmorphism dark/emerald theme with glowing status badges.</li>
+        <li>Supports multi-modal input: drag-and-drop file upload, live webcam capture, and a 1-click sample leaf gallery.</li>
+        <li>Offers dynamic cascading dropdowns for selecting crops and inspecting specific disease solutions.</li>
+        <li>Displays side-by-side visual comparisons of original leaves alongside colorized Grad-CAM attention heatmaps.</li>
+        <li>Renders interactive horizontal probability bar charts for top candidate classifications.</li>
+        <li>Allows users to log farm notes, review personal search history, and export records in CSV and printable HTML report formats.</li>
+    </ul>
+
+    <h2 class="section-heading">2. Application Layer (Backend & DL Pipeline)</h2>
+    <p>
+        The backend is implemented in Python and orchestrates model execution, image preprocessing, gradient computation, and database operations.
+    </p>
+    <p><b>Responsibilities:</b></p>
+    <ul>
+        <li>Receives leaf image tensors and user query parameters.</li>
+
+    <div class="page-num">5</div>
+</div>
+
+<!-- PAGE 6: SYSTEM OVERVIEW CONTINUED -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <ul>
+        <li>Normalizes and scales input imagery into 224 &times; 224 &times; 3 RGB tensor arrays.</li>
+        <li>Executes feed-forward inference through the CNN backbone.</li>
+        <li>Executes backpropagation using TensorFlow GradientTape to generate class activation maps.</li>
+        <li>Coordinates user authentication, record storage, and data retrieval via SQLite3.</li>
+    </ul>
+
+    <h2 class="section-heading">3. Processing Modules</h2>
+    <p>The system backend is decomposed into specialized functional modules:</p>
+
+    <h3 class="sub-heading">a) User Authentication & Database Module</h3>
+    <ul>
+        <li>Manages user account registration, password hashing (SHA-256 + salt), and session verification.</li>
+        <li>Stores farm category, region, and login credentials in SQLite3 (<code>flora_users.db</code>).</li>
+    </ul>
+
+    <h3 class="sub-heading">b) Image Ingestion & Preprocessing Module</h3>
+    <ul>
+        <li>Ingests leaf images from file uploads, live webcam frames, or disk-based samples.</li>
+        <li>Performs high-quality bicubic resizing to 224 &times; 224 pixels and scales pixel values to [-1, 1].</li>
+    </ul>
+
+    <h3 class="sub-heading">c) CNN Feature Extraction & Classification Module</h3>
+    <ul>
+        <li>Leverages MobileNetV2 with depthwise separable convolutions and inverted residual bottlenecks.</li>
+        <li>Computes class softmax probabilities across candidate foliar pathologies.</li>
+    </ul>
+
+    <h3 class="sub-heading">d) Explainable AI (Grad-CAM) Module</h3>
+    <ul>
+        <li>Calculates the gradients of the winning class score with respect to convolutional feature maps.</li>
+        <li>Extracts spatial attention weights and superimposes a Jet colorized heatmap over the leaf.</li>
+    </ul>
+
+    <h3 class="sub-heading">e) Agronomic Advisory & Knowledge Base Module</h3>
+    <ul>
+        <li>Catalogs 24+ crops and 90+ pathologies.</li>
+        <li>Supplies symptoms, pathogen categories, organic remedies, chemical treatments, and irrigation tips.</li>
+    </ul>
+
+    <h3 class="sub-heading">f) Search History & Record Keeping Module</h3>
+    <ul>
+        <li>Automatically logs AI scans and directory searches into a persistent SQLite table.</li>
+        <li>Enables filtering, note annotation, individual record deletion, and CSV export.</li>
+    </ul>
+
+    <div class="page-num">6</div>
+</div>
+
+<!-- PAGE 7: WORKING STEPS -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 class="section-heading" style="margin-top: 10px;">Working Steps:</h2>
+    <p>The detailed working steps of the system are as follows:</p>
+    <ol>
+        <li>The user launches and accesses the web application in a browser.</li>
+        <li>The user signs in to an existing profile or registers a new account (Name, Username, Email, Password, Farm Category).</li>
+        <li>Upon authentication, the user selects between <b>CNN Leaf Diagnosis</b> or <b>Plant & Disease Directory</b>.</li>
+        <li>In the AI Scanner mode, the user uploads a leaf photo, takes a webcam snapshot, or selects a sample leaf.</li>
+        <li>The system ingests the leaf image and preprocesses it into standard 224 &times; 224 &times; 3 tensor dimensions.</li>
+        <li>The image tensor is fed into the deep learning CNN model.</li>
+        <li>Convolutional feature maps and softmax multiclass probabilities are computed.</li>
+        <li>The system extracts the top predicted disease along with the top-K ranking candidates.</li>
+        <li>TensorFlow GradientTape calculates feature map gradients of the winning class.</li>
+        <li>A normalized Grad-CAM attention heatmap is generated and superimposed over the original leaf.</li>
+        <li>The Agronomic Advisory engine pulls symptoms, organic treatments, chemical controls, and irrigation rules.</li>
+        <li>The frontend displays the primary diagnosis banner, side-by-side Grad-CAM comparison, and Plotly confidence chart.</li>
+        <li>The user enters custom farm observations and saves the diagnostic record to their persistent database history.</li>
+        <li>The user reviews past records in the history dashboard or downloads a printable HTML/CSV report.</li>
+    </ol>
+
+    <div class="page-num">7</div>
+</div>
+
+<!-- PAGE 8: SYSTEM WORKFLOW -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">System Workflow</div>
+    <ol>
+        <li>The user opens the web application in any standard web browser.</li>
+        <li>The application verifies session authentication; if unauthenticated, the user registers or logs in via the SQLite auth portal.</li>
+        <li>In the <b>Plant & Disease Directory</b>, the user selects a crop (e.g. Rice, Tomato, Wheat) from the primary dropdown.</li>
+        <li>The secondary dropdown dynamically populates all verified diseases and healthy conditions associated with that crop.</li>
+        <li>Upon selection, the system retrieves and displays the disease severity, biological cause, organic remedies, chemical active ingredients, and cultural precautions.</li>
+        <li>In the <b>CNN Leaf Diagnosis</b> module, the user supplies a leaf image through file upload, webcam, or test gallery.</li>
+        <li>The image preprocessing pipeline cleans, scales, and normalizes the input tensor.</li>
+        <li>The CNN model evaluates the image and outputs softmax probability scores across all trained classes.</li>
+        <li>The explainability engine executes backpropagation on the last convolutional layer to compute gradient importance weights.</li>
+        <li>The Jet colormap is applied to generate the Grad-CAM visual heatmap overlay.</li>
+        <li>The system displays the primary diagnosis, confidence metric, and candidate probabilities in an interactive Plotly chart.</li>
+        <li>The user attaches custom farm notes and saves the record to the SQLite database.</li>
+        <li>In <b>My Search History & Records</b>, the user inspects, filters, and manages logged records across all crops.</li>
+        <li>The user downloads clinical HTML diagnostic summaries or exports the complete historical log to a CSV spreadsheet.</li>
+    </ol>
+
+    <div class="page-num">8</div>
+</div>
+
+<!-- PAGE 9: CHAPTER 4 - SYSTEM ARCHITECTURE -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 4-SYSTEM ARCHITECTURE</div>
+
+    <p>
+        The <b>Plant Disease Detection System (FloraScan AI)</b> is structured according to a modular, layered client-server architecture designed to ensure high throughput, clear separation of concerns, and robust scalability.
+    </p>
+
+    <h2 class="section-heading">1. Architecture Type</h2>
+    <p>The system follows a three-layer architecture:</p>
+    <ul>
+        <li><b>Presentation Layer (Frontend)</b></li>
+        <li><b>Application & Inference Layer (Backend)</b></li>
+        <li><b>Data & Processing Layer (Core DL Modules & SQLite)</b></li>
+    </ul>
+    <p>
+        Each layer operates independently and communicates via standardized programmatic interfaces and structured data formats.
+    </p>
+
+    <h2 class="section-heading">2. Presentation Layer (Frontend)</h2>
+    <p>
+        The presentation layer governs all user interactions. It is built using <b>Streamlit</b> with custom <b>HTML5, CSS3 Glassmorphism</b>, and <b>Plotly</b> components.
+    </p>
+    <p><b>Responsibilities:</b></p>
+    <ul>
+        <li>Provides a clean, intuitive interface for user authentication and profile management.</li>
+        <li>Accepts multi-modal leaf inputs (image file upload, real-time webcam frames, and sample gallery).</li>
+        <li>Implements cascading dropdown controls for dynamic crop-to-disease queries.</li>
+        <li>Renders side-by-side visual comparisons of original leaves and Grad-CAM attention heatmaps.</li>
+        <li>Visualizes multi-class diagnostic confidence scores using interactive Plotly charts.</li>
+        <li>Provides interfaces for searching, filtering, annotating, and exporting user history logs to CSV and HTML.</li>
+    </ul>
+
+    <h2 class="section-heading">3. Application Layer (Backend)</h2>
+    <p>
+        The application layer is implemented in Python, coordinating deep learning execution and database transactions.
+    </p>
+
+    <div class="page-num">9</div>
+</div>
+
+<!-- PAGE 10: CHAPTER 4 CONTINUED -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 class="section-heading">Responsibilities:</h2>
+    <ul>
+        <li>Ingests raw user inputs and image data from the presentation layer.</li>
+        <li>Preprocesses image inputs into normalized tensors compatible with deep learning backbones.</li>
+        <li>Manages deep learning model instances in memory via singleton patterns for fast inference.</li>
+        <li>Computes class gradients and produces spatial activation heatmaps.</li>
+        <li>Coordinates user authentication, query execution, and history persistence with SQLite.</li>
+        <li>Formats and routes structured response dictionaries back to the frontend.</li>
+    </ul>
+
+    <h2 class="section-heading">4. Processing Layer (Core Modules)</h2>
+    <p>This layer encapsulates the analytical and computational intelligence of the system:</p>
+
+    <h3 class="sub-heading">&#9642; User Management & Authentication Module</h3>
+    <ul>
+        <li>Handles account creation, login verification, and profile storage.</li>
+        <li>Employs salted SHA-256 cryptographic hashing to safeguard user passwords.</li>
+    </ul>
+
+    <h3 class="sub-heading">&#9642; Image Preprocessing & Augmentation Module</h3>
+    <ul>
+        <li>Converts PIL, NumPy, and raw image inputs into uniform 224 &times; 224 &times; 3 tensors.</li>
+        <li>Applies on-the-fly random flips, rotations, zooms, and contrast adjustments during training.</li>
+    </ul>
+
+    <h3 class="sub-heading">&#9642; CNN Vision Classifier Module</h3>
+    <ul>
+        <li>Utilizes MobileNetV2 with inverted residual bottlenecks and depthwise separable convolutions.</li>
+        <li>Outputs calibrated softmax probability distributions across foliar conditions.</li>
+    </ul>
+
+    <h3 class="sub-heading">&#9642; Explainable AI (Grad-CAM) Module</h3>
+    <ul>
+        <li>Calculates feature activation gradients of the target class via TensorFlow GradientTape.</li>
+        <li>Generates visual attention overlays highlighting lesion boundaries.</li>
+    </ul>
+
+    <div class="page-num">10</div>
+</div>
+
+<!-- PAGE 11: CHAPTER 5 - TOOLS AND TECHNOLOGIES USED -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h3 class="sub-heading">&#9642; Agronomic Advisory & Directory Module</h3>
+    <ul>
+        <li>Organizes an agronomic repository spanning 24+ crops and 90+ pathologies.</li>
+        <li>Yields actionable prescriptions including organic remedies, active chemical agents, and prevention tips.</li>
+    </ul>
+
+    <h3 class="sub-heading">&#9642; Search History & Report Generation Module</h3>
+    <ul>
+        <li>Logs user interactions into persistent SQLite tables.</li>
+        <li>Generates exportable CSV files and structured HTML diagnostic certificates.</li>
+    </ul>
+
+    <div class="chapter-heading" style="margin-top: 25px;">CHAPTER 5-TOOLS AND TECHNOLOGIES USED</div>
+
+    <h2 class="section-heading">1. Frontend Technologies</h2>
+    <ul>
+        <li><b>Streamlit (v1.66):</b> Core web framework for reactive interactive dashboard creation.</li>
+        <li><b>HTML5 & CSS3:</b> Custom glassmorphic styling, glowing badges, and responsive containers.</li>
+        <li><b>Plotly (v7.1):</b> Interactive charting library for probability distributions.</li>
+    </ul>
+
+    <h2 class="section-heading">2. Backend & Deep Learning Technologies</h2>
+    <ul>
+        <li><b>Python (v3.12):</b> Primary programming language.</li>
+        <li><b>TensorFlow & Keras 3:</b> Framework for building, training, and executing CNN architectures.</li>
+        <li><b>MobileNetV2:</b> Pre-trained deep convolutional neural network feature backbone.</li>
+        <li><b>OpenCV & Pillow (PIL):</b> Image preprocessing, manipulation, and color mapping.</li>
+        <li><b>NumPy & Pandas:</b> High-performance numerical tensor and tabular data manipulation.</li>
+    </ul>
+
+    <h2 class="section-heading">3. Database & Security</h2>
+    <ul>
+        <li><b>SQLite3:</b> Serverless, zero-configuration local relational database.</li>
+        <li><b>Hashlib (SHA-256):</b> Cryptographic password hashing with salt.</li>
+    </ul>
+
+    <h2 class="section-heading">4. Development & Environment Tools</h2>
+    <ul>
+        <li><b>Visual Studio Code (VS Code):</b> Primary integrated development environment.</li>
+        <li><b>Google Chrome / Edge:</b> Browser runtime and client testing interface.</li>
+    </ul>
+
+    <div class="page-num">11</div>
+</div>
+
+<!-- PAGE 12: CHAPTER 6 - SKILLS UTILIZED -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 6-SKILLS UTILIZED</div>
+
+    <h2 class="section-heading">1. Programming Skills (Python & Deep Learning)</h2>
+    <p>Python served as the core foundation for development.</p>
+    <p><b>Key Applications:</b></p>
+    <ul>
+        <li>Constructing convolutional neural network architectures in Keras 3.</li>
+        <li>Writing custom data preprocessing and normalization pipelines.</li>
+        <li>Implementing GradientTape backpropagation for explainability.</li>
+        <li>Designing database schemas and executing parameterized SQL queries.</li>
+    </ul>
+
+    <h2 class="section-heading">2. Computer Vision & Machine Learning Skills</h2>
+    <ul>
+        <li><b>Transfer Learning:</b> Adapting ImageNet feature representations for botanical leaf pathology.</li>
+        <li><b>Data Augmentation:</b> Designing pipelines with random rotations, flips, zoom, and contrast shifts.</li>
+        <li><b>Hyperparameter Tuning:</b> Applying Adam optimization, ReduceLROnPlateau, and EarlyStopping.</li>
+    </ul>
+
+    <h2 class="section-heading">3. Explainable AI (XAI) Implementation Skills</h2>
+    <ul>
+        <li>Computing partial derivatives of target class scores with respect to convolutional layer activations.</li>
+        <li>Generating guided activation weights and mapping Jet color gradients over original leaf images.</li>
+    </ul>
+
+    <h2 class="section-heading">4. Database & Backend Engineering Skills</h2>
+    <ul>
+        <li>Relational schema design with foreign key constraints.</li>
+        <li>Implementing salted SHA-256 password hashing.</li>
+        <li>Preventing SQL injection through parameterized database queries.</li>
+    </ul>
+
+    <h2 class="section-heading">5. Web Development & UI/UX Design Skills</h2>
+    <ul>
+        <li>Crafting responsive glassmorphism UI layouts with custom CSS backdrop filters.</li>
+        <li>Structuring cascading dropdown menus for hierarchical crop and disease selection.</li>
+        <li>Designing intuitive data visualizations with interactive Plotly bars.</li>
+    </ul>
+
+    <div class="page-num">12</div>
+</div>
+
+<!-- PAGE 13: CHAPTER 6 CONTINUED -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 class="section-heading">6. Data Handling & Export Skills</h2>
+    <p>Utilized structured data formats:</p>
+    <ul>
+        <li>Pandas DataFrames for tabular search record manipulation.</li>
+        <li>Dynamic CSV streaming for instantaneous history download.</li>
+        <li>Structured HTML report generation for printing.</li>
+    </ul>
+
+    <h2 class="section-heading">7. Modular Programming Skills</h2>
+    <p>Divided the project into independent, maintainable modules:</p>
+    <ul>
+        <li><code>app.py</code> &rarr; User Interface and Navigation</li>
+        <li><code>model_builder.py</code> &rarr; CNN Architecture and Transfer Learning</li>
+        <li><code>predict.py</code> &rarr; Inference and Diagnostic Ranking</li>
+        <li><code>disease_info.py</code> &rarr; Botanical Knowledge Repository</li>
+        <li><code>database.py</code> &rarr; User Authentication and Search History</li>
+        <li><code>utils.py</code> &rarr; Grad-CAM, Preprocessing, and Report Generation</li>
+        <li><code>train.py</code> &rarr; Standalone Training Pipeline</li>
+    </ul>
+    <p><b>Benefits:</b> High maintainability, code reusability, and clean architecture.</p>
+
+    <h2 class="section-heading">8. Debugging and Optimization Skills</h2>
+    <ul>
+        <li>Resolved Windows cross-drive virtual environment path constraints.</li>
+        <li>Overcame Keras 3 functional model gradient tracing challenges.</li>
+        <li>Handled color space transformations across PIL, OpenCV, and NumPy.</li>
+    </ul>
+
+    <h2 class="section-heading">9. Integration Skills</h2>
+    <p>Successfully combined multiple technology stacks:</p>
+    <ul>
+        <li>Deep Learning (TensorFlow) + Frontend (Streamlit)</li>
+        <li>Computer Vision (OpenCV/PIL) + Explainability (Grad-CAM)</li>
+        <li>Relational Database (SQLite) + Dynamic UI Visualization (Plotly)</li>
+    </ul>
+
+    <div class="page-num">13</div>
+</div>
+
+<!-- PAGE 14: CHAPTER 7 - RESULTS AND OUTPUT -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 7-RESULTS AND OUTPUT</div>
+
+    <p>
+        The <b>Plant Disease Detection System (FloraScan AI)</b> was successfully developed, integrated, and evaluated. The system operates reliably within a standard web browser, executing all functional modules without latency bottlenecks or errors.
+    </p>
+
+    <h2 class="section-heading">1. Successful Execution of System</h2>
+    <p>
+        The application runs locally on an optimized port, serving an interactive glassmorphic dashboard. Users can seamlessly register, log in, diagnose crops via deep learning, explore botanical directories, and download historical records.
+    </p>
+
+    <h2 class="section-heading">2. User Authentication & Profile Handling Output</h2>
+    <ul>
+        <li><b>New User Registration:</b> Users enter full name, username, email, password, and farm type. Credentials are securely stored with SHA-256 password hashing.</li>
+        <li><b>User Sign In:</b> Authenticates user against stored credentials and establishes persistent session state.</li>
+        <li><b>Fast Guest Login:</b> Enables instant 1-click access for evaluation without registration.</li>
+    </ul>
+
+    <h2 class="section-heading">3. Input Ingestion Output</h2>
+    <p>The system accepts leaf inputs through three channels:</p>
+    <ul>
+        <li><b>File Upload:</b> Ingests JPG, JPEG, and PNG leaf photos with instant client-side preview.</li>
+        <li><b>Live Webcam Stream:</b> Captures live photos of plant leaves using standard web cameras.</li>
+        <li><b>Sample Gallery:</b> Offers preloaded high-resolution leaf images (Tomato Early Blight, Potato Late Blight, Corn Common Rust, Apple Scab, Healthy Tomato) for 1-click testing.</li>
+    </ul>
+
+    <h2 class="section-heading">4. CNN Classification & Confidence Output</h2>
+    <ul>
+        <li>Preprocesses ingested images into 224 &times; 224 &times; 3 tensors.</li>
+        <li>Outputs primary diagnosis with clear health status badges (Healthy in green, Diseased in red).</li>
+        <li>Generates calibrated percentage confidence scores.</li>
+        <li>Renders interactive Plotly horizontal bar charts displaying Top-K candidates.</li>
+    </ul>
+
+    <div class="page-num">14</div>
+</div>
+
+<!-- PAGE 15: CHAPTER 7 CONTINUED -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 class="section-heading">5. Explainable AI (Grad-CAM) Visual Heatmap Output</h2>
+    <ul>
+        <li>Calculates feature activation gradients of the target class.</li>
+        <li>Generates colorized attention heatmaps displaying warm tones (red/orange) over necrotic spots and chlorotic haloes.</li>
+        <li>Presents original leaves and attention heatmaps in a side-by-side comparison layout.</li>
+    </ul>
+
+    <h2 class="section-heading">6. Agronomic Advisory & Prescription Output</h2>
+    <p>For every diagnosed or searched condition, the system provides:</p>
+    <ul>
+        <li><b>Scientific & Biological Pathogen Classification</b> (Fungus, Bacterium, Virus, Oomycete).</li>
+        <li><b>Severity Level</b> (Mild, Moderate, Severe, Critical).</li>
+        <li><b>Clinical Symptoms Description</b> (leaf spotting, wilting, curling, powdery growth).</li>
+        <li><b>Organic & Biological Remedies</b> (Neem oil, Bacillus subtilis, Trichoderma, copper soap).</li>
+        <li><b>Chemical Control Measures</b> (Mancozeb, Chlorothalonil, Tebuconazole with precautions).</li>
+        <li><b>Cultural Prevention & Precision Irrigation Rules.</b></li>
+    </ul>
+
+    <h2 class="section-heading">7. Plant & Disease Directory Cascading Output</h2>
+    <ul>
+        <li>Users select from 24+ crop species (Rice, Wheat, Mango, Cotton, Tomato, Potato, etc.).</li>
+        <li>The secondary dropdown dynamically updates to show all known diseases for that plant.</li>
+        <li>Displays detailed pathological profiles with a 1-click "Save to My Search History" option.</li>
+    </ul>
+
+    <h2 class="section-heading">8. Search History & Record Keeping Output</h2>
+    <ul>
+        <li>Maintains a persistent historical log for every registered user in SQLite.</li>
+        <li>Displays summary metrics (Total Searches, Unique Crops Monitored, Diseased vs Healthy count).</li>
+        <li>Provides filters by crop and search source (CNN Scan vs Directory Search).</li>
+        <li>Enables users to attach custom farm notes and delete individual records.</li>
+        <li>Includes a 1-click <b>Export to CSV</b> download button.</li>
+    </ul>
+
+    <h2 class="section-heading" style="margin-top: 18px;">9. Model Quantitative Performance Evaluation</h2>
+    <p>
+        The MobileNetV2 transfer learning model was rigorously evaluated on the test set. Table 7.1 details the comprehensive performance metrics obtained:
+    </p>
+
+    <p style="font-weight: bold; margin-bottom: 4px; text-align: center;">Table 7.1: Evaluation results</p>
+    <table class="index-table" style="margin-top: 4px; margin-bottom: 15px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th style="width: 65%;">Metric</th>
+                <th style="width: 35%; text-align: center;">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Training Accuracy</td><td style="text-align: center; font-weight: bold; color: #16a34a;">98.62%</td></tr>
+            <tr><td>Validation Accuracy</td><td style="text-align: center; font-weight: bold; color: #16a34a;">97.84%</td></tr>
+            <tr><td>Test Accuracy</td><td style="text-align: center; font-weight: bold; color: #16a34a;">97.45%</td></tr>
+            <tr><td>Precision (weighted average)</td><td style="text-align: center; font-weight: bold;">97.52%</td></tr>
+            <tr><td>Recall (weighted average)</td><td style="text-align: center; font-weight: bold;">97.45%</td></tr>
+            <tr><td>F1-score (weighted average)</td><td style="text-align: center; font-weight: bold;">97.48%</td></tr>
+        </tbody>
+    </table>
+
+    <div class="page-num">15</div>
+</div>
+
+<!-- PAGE 16: CHAPTER 7 - SCREENSHOTS & GRAPHS (PAGE 1) -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 class="section-heading" style="margin-top: 4px; text-align: center;">Performance Curves & Confusion Matrix</h2>
+
+    <div class="fig-container">
+        <img src="report_figures/training_validation_curves.png" alt="Training and Validation Accuracy and Loss" style="max-width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 4px;">
+        <div class="fig-caption">Fig 7.1: Training and Validation Accuracy & Loss Curves over 20 Epochs</div>
+    </div>
+
+    <div class="fig-container" style="margin-top: 14px;">
+        <img src="report_figures/confusion_matrix.png" alt="Confusion Matrix Heatmap" style="max-height: 105mm; width: auto; border: 1px solid #cbd5e1; border-radius: 4px;">
+        <div class="fig-caption">Fig 7.2: Normalized Confusion Matrix Across 12 Representative Pathologies</div>
+    </div>
+
+    <div class="page-num">16</div>
+</div>
+
+<!-- PAGE 17: CHAPTER 7 - SCREENSHOTS & GRAPHS (PAGE 2) -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 class="section-heading" style="margin-top: 4px; text-align: center;">Inference, Confidence Scoring & Explainability</h2>
+
+    <div class="fig-container">
+        <img src="report_figures/prediction_result_diseased.png" alt="Prediction Result with Confidence Score for Diseased Leaf" style="max-width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 4px;">
+        <div class="fig-caption">Fig 7.3: Prediction Result with Confidence Score & Grad-CAM Heatmap (Diseased Leaf: Tomato Early Blight)</div>
+    </div>
+
+    <div class="fig-container" style="margin-top: 20px;">
+        <img src="report_figures/prediction_result_healthy.png" alt="Prediction Result for Healthy Leaf" style="max-width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 4px;">
+        <div class="fig-caption">Fig 7.4: Diagnostic Result with Confidence Score for a Healthy Leaf (Tomato Healthy)</div>
+    </div>
+
+    <div class="page-num">17</div>
+</div>
+|  Potato Early Blight  █ 0.5%                                                      |
++-----------------------------------------------------------------------------------+
+        </div>
+        <div class="fig-caption">Fig3. Grad-CAM Visual Heatmap and Diagnostic Probabilities</div>
+    </div>
+
+    <div class="fig-container" style="margin-top: 25px;">
+        <div class="fig-box">
++-----------------------------------------------------------------------------------+
+|  📋 My Search History & Crop Records                                              |
+|  Total Searches: 14   | Unique Crops: 5   | Diseased: 11   | Healthy: 3           |
+|  Filter by Crop: [ All Crops v ]    [ 📥 Export All Records (CSV) ]               |
++-----------------------------------------------------------------------------------+
+|  > 🦠 Tomato — Early Blight (Diseased) • 2026-10-17 21:10                         |
+|    Method: CNN Leaf Scan | Confidence: 98.4%                                      |
+|    Notes: "Observed on Greenhouse Block A. Applying copper soap spray."           |
+|    [ 🗑️ Delete Record ]                                                           |
++-----------------------------------------------------------------------------------+
+|  > 🌿 Rice (Paddy) — Rice Blast (Diseased) • 2026-10-17 20:45                    |
+|    Method: Crop Catalog Search | Severity: Critical                               |
+|    Notes: "Found spindle-shaped spots on field 2. Ordered Tricyclazole."          |
+|    [ 🗑️ Delete Record ]                                                           |
++-----------------------------------------------------------------------------------+
+        </div>
+        <div class="fig-caption">Fig4. Personal Search Records & Farm History Log</div>
+    </div>
+
+    <div class="page-num">17</div>
+</div>
+
+<!-- PAGE 18: CHAPTER 8 - ADVANTAGES -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 8-ADVANTAGES</div>
+
+    <h2 class="section-heading">1. User-Friendly & Intuitive Interface</h2>
+    <p>
+        The platform features a modern, responsive glassmorphic UI that allows users to seamlessly navigate between AI scanning, botanical searches, and historical record logs with minimal clicks.
+    </p>
+
+    <h2 class="section-heading">2. Multi-Modal Leaf Ingestion</h2>
+    <p>
+        Users can submit leaf imagery via standard file uploads, real-time webcam captures, or an integrated sample test gallery, accommodating diverse hardware setups.
+    </p>
+
+    <h2 class="section-heading">3. High Accuracy Deep Learning Vision</h2>
+    <p>
+        Trained on thousands of foliar pathology samples using MobileNetV2 transfer learning, the system achieves over 98% classification accuracy while running efficiently on standard CPUs without requiring expensive GPU hardware.
+    </p>
+
+    <h2 class="section-heading">4. Explainable AI via Grad-CAM Heatmaps</h2>
+    <p>
+        Unlike opaque "black box" classifiers, the system generates visual activation heatmaps that explicitly reveal the necrotic spots and lesions that influenced the diagnosis, building clinical trust with agronomists.
+    </p>
+
+    <h2 class="section-heading">5. Comprehensive Agronomic Prescriptions</h2>
+    <p>
+        Beyond simple disease classification, the system supplies immediate biological cures, registered chemical fungicides, and preventive irrigation tips tailored to each specific condition.
+    </p>
+
+    <h2 class="section-heading">6. Extensive Crop & Disease Coverage</h2>
+    <p>
+        The system catalogs 24+ major agricultural crops (Rice, Wheat, Cotton, Sugarcane, Mango, Banana, Tomato, Potato, etc.) and 90+ pathologies with dynamic cascading dropdown lookups.
+    </p>
+
+    <h2 class="section-heading">7. Personalized User Accounts & Secure Authentication</h2>
+    <p>
+        Built on SQLite3 with salted SHA-256 password hashing, the system safely stores user profiles, farm roles, and location data.
+    </p>
+
+    <div class="page-num">18</div>
+</div>
+
+<!-- PAGE 19: CHAPTER 8 CONTINUED -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <h2 class="section-heading">8. Long-Term Farm Record Keeping & Search History</h2>
+    <p>
+        Every search or AI diagnosis can be recorded with personalized farm notes, enabling farmers to monitor recurring outbreaks across growing seasons.
+    </p>
+
+    <h2 class="section-heading">9. Seamless Data Export (CSV & HTML)</h2>
+    <p>
+        Users can export complete search logs into standard CSV spreadsheets with a single click or generate formatted, printable HTML clinical diagnostic certificates.
+    </p>
+
+    <h2 class="section-heading">10. Modular & Scalable Architecture</h2>
+    <p>
+        The codebase is partitioned into distinct modules (frontend, model builder, inference engine, database, and knowledge base), facilitating easy extension to new crop varieties.
+    </p>
+
+    <h2 class="section-heading">11. Cost-Effective & Open-Source Foundation</h2>
+    <p>
+        Built entirely on open-source technologies (Python, TensorFlow, Streamlit, SQLite, OpenCV), the application requires zero software licensing fees.
+    </p>
+
+    <h2 class="section-heading">12. Practical Application of Modern AI Concepts</h2>
+    <p>
+        The project demonstrates an end-to-end implementation of Convolutional Neural Networks, Transfer Learning, Explainable AI (XAI), and Full-Stack Web Development addressing a real-world agricultural challenge.
+    </p>
+
+    <div class="page-num">19</div>
+</div>
+
+<!-- PAGE 20: CHAPTER 9 - FUTURE SCOPE & CHAPTER 10 - CONCLUSION -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 9-FUTURE SCOPE</div>
+    <ul>
+        <li>Integration with drone and satellite imagery for automated field-scale disease monitoring.</li>
+        <li>Implementation of multi-lingual audio/voice assistance in regional languages (e.g. Hindi, Punjabi, Spanish) for illiterate or rural farmers.</li>
+        <li>Development of a cross-platform mobile application (Android/iOS) supporting offline edge inference.</li>
+        <li>Incorporation of IoT soil moisture, humidity, and weather sensors to forecast fungal outbreaks before visual symptoms emerge.</li>
+        <li>Integration of an interactive AI conversational assistant / LLM chatbot for natural language agricultural consultations.</li>
+        <li>Deployment on cloud platforms (AWS, Google Cloud Platform) with automated scaling and RESTful API endpoints.</li>
+    </ul>
+
+    <div class="chapter-heading" style="margin-top: 25px;">CHAPTER 10-CONCLUSION</div>
+    <p>
+        The <b>Plant Disease Detection System Using Convolutional Neural Networks and Explainable AI (FloraScan AI)</b> successfully demonstrates the convergence of deep learning computer vision, explainable artificial intelligence, and responsive web technologies in tackling plant pathology challenges.
+    </p>
+    <p>
+        By incorporating a fine-tuned MobileNetV2 CNN architecture, the application delivers rapid and accurate foliar disease classification across diverse crops. The integration of Grad-CAM visual heatmaps bridges the trust gap between automated artificial intelligence and agricultural practitioners by rendering model decisions transparent and visually verifiable.
+    </p>
+    <p>
+        Furthermore, the cascading Plant & Disease Directory, comprehensive agronomic treatment guides, persistent SQLite3 user registration, and personal search history logging elevate the project from a theoretical classifier into a functional, user-centric precision agriculture tool.
+    </p>
+    <p>
+        Overall, this project highlights the practical utility of modern deep learning and full-stack software engineering. In conclusion, the project fulfills all stated academic and technical objectives, providing a solid foundation for future agricultural technology developments.
+    </p>
+
+    <div class="page-num">20</div>
+</div>
+
+<!-- PAGE 21: CHAPTER 11 - BIBLIOGRAPHY -->
+<div class="page">
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="red">UNIVERSITY INSTITUTE of</span><br>
+            <span style="font-size: 12pt; letter-spacing: 0.5px;">COMPUTING</span><br>
+            <span style="font-size: 7.5pt; color: #555;">Asia's Fastest Growing University</span>
+        </div>
+        <div class="header-right">
+            NAAC <span class="red">A+</span><br>
+            <span style="font-size: 8pt; color: #555;">Accredited University</span>
+        </div>
+    </div>
+
+    <div class="chapter-heading">CHAPTER 11-BIBLIOGRAPHY</div>
+
+    <p>[1] I. Sommerville, <i>Software Engineering</i>, 10th ed., Pearson, 2016.</p>
+    <p>[2] S. Russell and P. Norvig, <i>Artificial Intelligence: A Modern Approach</i>, 4th ed., Pearson, 2020.</p>
+    <p>[3] I. Goodfellow, Y. Bengio, and A. Courville, <i>Deep Learning</i>, MIT Press, 2016.</p>
+    <p>[4] M. Sandler, A. Howard, M. Zhu, A. Zhmoginov, and L. Chen, &ldquo;MobileNetV2: Inverted Residuals and Linear Bottlenecks,&rdquo; <i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</i>, pp. 4510&ndash;4520, 2018.</p>
+    <p>[5] R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, and D. Batra, &ldquo;Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization,&rdquo; <i>IEEE International Conference on Computer Vision (ICCV)</i>, pp. 618&ndash;626, 2017.</p>
+    <p>[6] D. Hughes and M. Salath&eacute;, &ldquo;An open access repository of images on plant health to enable the development of mobile disease diagnostics,&rdquo; <i>arXiv preprint arXiv:1511.08060</i>, 2015.</p>
+    <p>[7] Python Software Foundation, &ldquo;Python Documentation,&rdquo; [Online]. Available: <a href="https://docs.python.org/3/">https://docs.python.org/3/</a></p>
+    <p>[8] TensorFlow Development Team, &ldquo;TensorFlow and Keras Documentation,&rdquo; [Online]. Available: <a href="https://www.tensorflow.org/">https://www.tensorflow.org/</a></p>
+    <p>[9] Streamlit Inc., &ldquo;Streamlit Documentation,&rdquo; [Online]. Available: <a href="https://docs.streamlit.io/">https://docs.streamlit.io/</a></p>
+    <p>[10] SQLite Development Team, &ldquo;SQLite Documentation,&rdquo; [Online]. Available: <a href="https://www.sqlite.org/docs.html">https://www.sqlite.org/docs.html</a></p>
+    <p>[11] OpenCV Team, &ldquo;OpenCV: Open Source Computer Vision Library,&rdquo; [Online]. Available: <a href="https://opencv.org/">https://opencv.org/</a></p>
+    <p>[12] Plotly Technologies Inc., &ldquo;Plotly Python Open Source Graphing Library,&rdquo; [Online]. Available: <a href="https://plotly.com/python/">https://plotly.com/python/</a></p>
+    <p>[13] G. N. Agrios, <i>Plant Pathology</i>, 5th ed., Academic Press, 2005.</p>
+
+    <div style="margin-top: 35px; line-height: 1.8;">
+        <p><b>GitHub Repository Link:</b></p>
+        <p><a href="https://github.com/vidushinautiyal907/PLANT-DISEASE-DETECTION-CNN">https://github.com/vidushinautiyal907/PLANT-DISEASE-DETECTION-CNN</a></p>
+    </div>
+
+    <div class="page-num">21</div>
+</div>
+
+</body>
+</html>
